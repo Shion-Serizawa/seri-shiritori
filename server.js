@@ -18,7 +18,7 @@ serve(async (req) => {
     const requestJson = await req.json();
     const nextWord = requestJson.nextWord;
 
-    //カタカナとひらがなを対応にしたい。
+    //カタカナとひらがなを対応
     if (
       nextWord.length > 0 &&
       (previousWord.charAt(previousWord.length - 1) !== kanaToHira(nextWord).charAt(0) &&  previousWord.charAt(previousWord.length - 1) !== hiraToKana(nextWord).charAt(0))
