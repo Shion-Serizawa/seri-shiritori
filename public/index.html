@@ -8,47 +8,94 @@
   <body>
     <h1>しりとり</h1>
     <p id="previousWord"></p>
-    <input id="nextWordInput" type="text" />
-    <button id="nextWordSendButton">送信</button>
+    <div class="input">
+      <label
+        ><input id="nextWordInput" type="text" onfocus="this.select();" />
+
+        <button id="nextWordSendButton">送信</button></label
+      >
+
+      <label><button id="reset">しりとりリセット！</button></label>
+    </div>
+    <p id="log"></p>
 
     <script type="module">
       window.onload = async (event) => {
-        await fetch("/shiritori", {
-          method: "POST",
-
-          headers: { "Content-Type": "application/json" },
-
-          body: JSON.stringify({ nextWord: "りんご" }),
-        });
-
         const response = await fetch("/shiritori");
         const previousWord = await response.text();
 
         const para = document.querySelector("#previousWord");
         para.innerText = `前の単語：${previousWord}`;
+
+        const response2 = await fetch("/rireki");
+        const previousWord2 = await response2.text();
+
+        const para2 = document.querySelector("#log");
+        para2.innerText = `履歴：${previousWord2}`;
       };
 
       document.querySelector("#nextWordSendButton").onclick = async (event) => {
         const nextWord = document.querySelector("#nextWordInput").value;
 
-        const response = await fetch("/shiritori", {
+        var response = await fetch("/shiritori", {
           method: "POST",
 
           headers: { "Content-Type": "application/json" },
 
           body: JSON.stringify({ nextWord }),
         });
+
+        if (response.status === 418) {
+          alert("んがついたので終了です。");
+          const previousWord = await response.text();
+          const para = document.querySelector("#previousWord");
+
+          para.innerText = `前の単語：${previousWord}`;
+
+          // const response2 = await fetch("/rireki");
+          // const previousWord2 = await response2.text();
+
+          // const para2 = document.querySelector("#log");
+          // para2.innerText = `履歴：${previousWord2}`;
+          await rireki();
+        }
+
         if (response.status / 100 !== 2) {
           alert(await response.text());
           return;
         }
 
         const previousWord = await response.text();
-
         const para = document.querySelector("#previousWord");
 
         para.innerText = `前の単語：${previousWord}`;
+
+        // const response2 = await fetch("/rireki");
+        // const previousWord2 = await response2.text();
+
+        // const para2 = document.querySelector("#log");
+        // para2.innerText = `履歴：${previousWord2}`;
+        await rireki();
       };
+
+      document.querySelector("#reset").onclick = async (event) => {
+        const response = await fetch("/reset");
+        const previousWord = await response.text();
+
+        const para = document.querySelector("#previousWord");
+        para.innerText = `前の単語：${previousWord}`;
+
+        const para2 = document.querySelector("#log");
+        para2.innerText = `履歴：${previousWord}`;
+      };
+
+      async function rireki() {
+        const response2 = await fetch("/rireki");
+        const previousWord2 = await response2.text();
+
+        const para2 = document.querySelector("#log");
+        para2.innerText = `履歴：${previousWord2}`;
+      }
     </script>
   </body>
 </html>
