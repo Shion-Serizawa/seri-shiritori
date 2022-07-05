@@ -17,8 +17,8 @@ for (let i = 2; i < 905; i+=2) {
 
   await pokemonAll.push(name);
   await pokemonAll.push(name2);
-  // await console.log(name);
-  // await console.log(name2);
+  await console.log(name);
+  await console.log(name2);
 }
 // await console.log(pokemonAll);
 
