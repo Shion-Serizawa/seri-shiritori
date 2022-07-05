@@ -6,8 +6,12 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>しりとり</h1>
-    <p id="previousWord"></p>
+    <header id="header"><h1>ポケモンしりとり</h1></header>
+    <div class="previousWordDisplay">
+      <p id="previoudlabel">前の単語<h3 id="previousWord"></h3></p>
+      
+    </div>
+    
     <div class="input">
       <label
         ><input id="nextWordInput" type="text" onfocus="this.select();" />
@@ -15,7 +19,8 @@
         <button id="nextWordSendButton">送信</button></label
       >
 
-      <label><button id="reset">しりとりリセット！</button></label>
+      <!-- <label><button id="reset">しりとりリセット！</button></label> -->
+      <button id="reset">しりとりリセット！</button>
     </div>
     <p id="log"></p>
 
@@ -25,7 +30,7 @@
         const previousWord = await response.text();
 
         const para = document.querySelector("#previousWord");
-        para.innerText = `前の単語：${previousWord}`;
+        para.innerText = `${previousWord}`;
 
         const response2 = await fetch("/rireki");
         const previousWord2 = await response2.text();
@@ -50,13 +55,8 @@
           const previousWord = await response.text();
           const para = document.querySelector("#previousWord");
 
-          para.innerText = `前の単語：${previousWord}`;
+          para.innerText = `${previousWord}`;
 
-          // const response2 = await fetch("/rireki");
-          // const previousWord2 = await response2.text();
-
-          // const para2 = document.querySelector("#log");
-          // para2.innerText = `履歴：${previousWord2}`;
           await rireki();
         }
 
@@ -68,13 +68,8 @@
         const previousWord = await response.text();
         const para = document.querySelector("#previousWord");
 
-        para.innerText = `前の単語：${previousWord}`;
+        para.innerText = `${previousWord}`;
 
-        // const response2 = await fetch("/rireki");
-        // const previousWord2 = await response2.text();
-
-        // const para2 = document.querySelector("#log");
-        // para2.innerText = `履歴：${previousWord2}`;
         await rireki();
       };
 
@@ -83,7 +78,7 @@
         const previousWord = await response.text();
 
         const para = document.querySelector("#previousWord");
-        para.innerText = `前の単語：${previousWord}`;
+        para.innerText = `${previousWord}`;
 
         const para2 = document.querySelector("#log");
         para2.innerText = `履歴：${previousWord}`;
