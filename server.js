@@ -7,7 +7,7 @@ import { serveDir } from "https://deno.land/std@0.138.0/http/file_server.ts";
 let pokemonAll = ["フシギダネ"];
 const url = "https://pokeapi.co/api/v2/pokemon-species/";
 
-for (let i = 2; i < 1008; i+=2) {
+for (let i = 2; i < 905; i+=2) {
   const data = await fetch(url + Number(i));
   const data2 = await fetch(url + Number(i+1))
   const json = await data.json();
